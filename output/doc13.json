@@ -1,0 +1,25 @@
+{
+  "title": "SQL QUERY OPTIMIZATION",
+  "outline": [
+    {
+      "level": "H1",
+      "text": "The Fix: Keyset Pagination",
+      "page": 3
+    },
+    {
+      "level": "H1",
+      "text": "1. Cursor-Based Pagination",
+      "page": 4
+    },
+    {
+      "level": "H1",
+      "text": "3. Materialized Views",
+      "page": 5
+    },
+    {
+      "level": "H1",
+      "text": "Final Thoughts",
+      "page": 6
+    }
+  ]
+}

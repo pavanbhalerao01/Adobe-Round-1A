@@ -1,0 +1,45 @@
+{
+  "title": "Data Science Tutorial",
+  "outline": [
+    {
+      "level": "H1",
+      "text": "Tools for Data Science",
+      "page": 2
+    },
+    {
+      "level": "H1",
+      "text": "Mathematics for Data Science",
+      "page": 2
+    },
+    {
+      "level": "H1",
+      "text": "Data Preprocessing",
+      "page": 2
+    },
+    {
+      "level": "H1",
+      "text": "Data Analysis",
+      "page": 2
+    },
+    {
+      "level": "H1",
+      "text": "Data analysis is the process of inspecting data to discover meaningful insights and trends to make informed decision. What is Data Analysis? • Data Analysis Process • What is Exploratory Data Analysis? • Identifying correlations between features • Statistical Analysis",
+      "page": 2
+    },
+    {
+      "level": "H1",
+      "text": "Data Visualization",
+      "page": 3
+    },
+    {
+      "level": "H1",
+      "text": "Machine Learning",
+      "page": 3
+    },
+    {
+      "level": "H1",
+      "text": "Careers in Data Science",
+      "page": 3
+    }
+  ]
+}

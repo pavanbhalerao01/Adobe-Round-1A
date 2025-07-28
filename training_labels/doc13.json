@@ -1,0 +1,50 @@
+{
+    "title": "SQL Query Optimization",
+    "outline": [
+        {
+            "level": "H1",
+            "text": "OFFSET Pagination: The Silent Killer",
+            "page": 1
+        },
+        {
+            "level": "H1",
+            "text": "The Fix: Keyset Pagination",
+            "page": 2
+        },
+        {
+            "level": "H1",
+            "text": "How We Handle Duplicate Timestamps",
+            "page": 3
+        },
+        {
+            "level": "H1",
+            "text": "Some Other Approaches We Considered",
+            "page": 3
+        },
+        {
+            "level": "H2",
+            "text": "1. Cursor-Based Pagination",
+            "page": 3
+        },
+        {
+            "level": "H2",
+            "text": "2. Index-Only OFFSET",
+            "page": 4
+        },
+        {
+            "level": "H2",
+            "text": "3. Materialized Views",
+            "page": 4
+        },
+        {
+            "level": "H1",
+            "text": "Actual Results After the Fix",
+            "page": 5
+        },
+        {
+            "level": "H1",
+            "text": "Final Thoughts",
+            "page": 5
+        }
+    ]
+}

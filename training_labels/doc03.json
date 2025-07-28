@@ -1,0 +1,40 @@
+{
+    "title": "Data Science Tutorial",
+    "outline": [
+        {
+            "level": "H1",
+            "text": "Tools for Data Science",
+            "page": 1
+        },
+        {
+            "level": "H1",
+            "text": "Mathematics for Data Science",
+            "page": 1
+        },
+        {
+            "level": "H1",
+            "text": "Data Preprocessing",
+            "page": 1
+        },
+        {
+            "level": "H1",
+            "text": "Data Analysis",
+            "page": 1
+        },
+        {
+            "level": "H1",
+            "text": "Data Visualization",
+            "page": 2
+        },
+        {
+            "level": "H1",
+            "text": "Machine Learning",
+            "page": 2
+        },
+        {
+            "level": "H1",
+            "text": "Careers in Data Science",
+            "page": 2
+        }
+    ]
+}

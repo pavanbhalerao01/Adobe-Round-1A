@@ -1,0 +1,55 @@
+{
+    "title": "Python Tutorial - Learn Programming Language ",
+    "outline": [
+        {
+            "level": "H1",
+            "text": "Why to Learn Python? ",
+            "page": 1
+        },
+        {
+            "level": "H1",
+            "text": "First Python Program",
+            "page": 1
+        },
+        {
+            "level": "H2",
+            "text": "1. Python Basics",
+            "page": 1
+        },
+        {
+            "level": "H2",
+            "text": "2. Python Functions ",
+            "page": 1
+        },
+        {
+            "level": "H2",
+            "text": "3. Python Data Structures ",
+            "page": 2
+        },
+        {
+            "level": "H2",
+            "text": "4. Python OOPs Concepts",
+            "page": 2
+        },
+        {
+            "level": "H2",
+            "text": "5. Python Exception Handling",
+            "page": 2
+        },
+        {
+            "level": "H2",
+            "text": "6. File Handling ",
+            "page": 2
+        },
+        {
+            "level": "H2",
+            "text": "7. Python Database Handling",
+            "page": 2
+        },
+        {
+            "level": "H2",
+            "text": "8. Python Packages or Libraries",
+            "page": 3
+        }
+    ]
+}

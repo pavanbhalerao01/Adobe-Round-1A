@@ -1,0 +1,20 @@
+{
+  "title": "VECTOR INTERRUPTS",
+  "outline": [
+    {
+      "level": "H1",
+      "text": "Interrupt Vector Table (IVT",
+      "page": 5
+    },
+    {
+      "level": "H1",
+      "text": "Working Process",
+      "page": 5
+    },
+    {
+      "level": "H1",
+      "text": "8086 IVT",
+      "page": 8
+    }
+  ]
+}

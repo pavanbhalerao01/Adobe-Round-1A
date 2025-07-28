@@ -1,0 +1,160 @@
+{
+    "title": "DSA Tutorial - Learn Data Structures and Algorithms",
+    "outline": [
+        {
+            "level": "H1",
+            "text": "Why to Learn DSA?",
+            "page": 1
+        },
+        {
+            "level": "H1",
+            "text": "How to learn DSA?",
+            "page": 1
+        },
+        {
+            "level": "H2",
+            "text": "1. Logic Building",
+            "page": 1
+        },
+        {
+            "level": "H2",
+            "text": "2. Learn about Complexities",
+            "page": 1
+        },
+        {
+            "level": "H2",
+            "text": "3. Array",
+            "page": 2
+        },
+        {
+            "level": "H2",
+            "text": "4. Searching Algorithms",
+            "page": 2
+        },
+        {
+            "level": "H2",
+            "text": "5. Sorting Algorithm",
+            "page": 2
+        },
+        {
+            "level": "H2",
+            "text": "6. Hashing",
+            "page": 2
+        },
+        {
+            "level": "H2",
+            "text": "7. Two Pointer Technique",
+            "page": 2
+        },
+        {
+            "level": "H2",
+            "text": "8. Window Sliding Technique",
+            "page": 3
+        },
+        {
+            "level": "H2",
+            "text": "9. Prefix Sum Technique",
+            "page": 3
+        },
+        {
+            "level": "H2",
+            "text": "10. String",
+            "page": 3
+        },
+        {
+            "level": "H2",
+            "text": "11. Recursion",
+            "page": 3
+        },
+        {
+            "level": "H2",
+            "text": "12. Matrix/Grid",
+            "page": 3
+        },
+        {
+            "level": "H2",
+            "text": "13. Linked List",
+            "page": 3
+        },
+        {
+            "level": "H2",
+            "text": "14. Stack",
+            "page": 4
+        },
+        {
+            "level": "H2",
+            "text": "15. Queue",
+            "page": 4
+        },
+        {
+            "level": "H2",
+            "text": "16. Deque",
+            "page": 4
+        },
+        {
+            "level": "H2",
+            "text": "17. Tree",
+            "page": 4
+        },
+        {
+            "level": "H2",
+            "text": "18. Heap",
+            "page": 4
+        },
+        {
+            "level": "H2",
+            "text": "19. Graph",
+            "page": 4
+        },
+        {
+            "level": "H2",
+            "text": "20. Greedy Algorithm",
+            "page": 5
+        },
+        {
+            "level": "H2",
+            "text": "21. Dynamic Programming",
+            "page": 5
+        },
+        {
+            "level": "H2",
+            "text": "22. Advanced Data Structure and Algorithms",
+            "page": 5
+        },
+        {
+            "level": "H2",
+            "text": "23. Other Algorithms",
+            "page": 5
+        },
+        {
+            "level": "H3",
+            "text": "Bitwise Algorithms",
+            "page": 5
+        },
+        {
+            "level": "H3",
+            "text": "Backtracking Algorithm",
+            "page": 6
+        },
+        {
+            "level": "H3",
+            "text": "Divide and conquer",
+            "page": 6
+        },
+        {
+            "level": "H3",
+            "text": "Branch and Bound",
+            "page": 6
+        },
+        {
+            "level": "H3",
+            "text": "Geometric algorithms",
+            "page": 6
+        },
+        {
+            "level": "H3",
+            "text": "Randomized algorithms",
+            "page": 6
+        }
+    ]
+}

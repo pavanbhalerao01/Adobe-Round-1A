@@ -1,0 +1,90 @@
+{
+    "title": "Kubernetes Is Dead",
+    "outline": [
+        {
+            "level": "H1",
+            "text": "Why Tech Giants Are Secretly Moving to These 5 Orchestration Alternatives",
+            "page": 1
+        },
+        {
+            "level": "H2",
+            "text": "Complexity That Never Pays Off",
+            "page": 1
+        },
+        {
+            "level": "H2",
+            "text": "The Hidden Cost Center",
+            "page": 2
+        },
+        {
+            "level": "H2",
+            "text": "Operational Maturity Mismatch",
+            "page": 3
+        },
+        {
+            "level": "H2",
+            "text": "The 5 Alternatives Gaining Serious Traction",
+            "page": 3
+        },
+        {
+            "level": "H3",
+            "text": "1. AWS App Runner + ECS: Simplicity Over Control",
+            "page": 3
+        },
+        {
+            "level": "H3",
+            "text": "2. Nomad: The Underappreciated Orchestrator",
+            "page": 4
+        },
+        {
+            "level": "H3",
+            "text": "3. Serverless Container Platforms: Google Cloud Run and Azure Container Apps",
+            "page": 4
+        },
+        {
+            "level": "H3",
+            "text": "4. Platform Engineering with Internal Developer Platforms (IDPs)",
+            "page": 5
+        },
+        {
+            "level": "H3",
+            "text": "5. The “Less is More” Approach: Containerization Without Orchestration",
+            "page": 6
+        },
+        {
+            "level": "H2",
+            "text": "Making the Right Choice For Your Team",
+            "page": 6
+        },
+        {
+            "level": "H3",
+            "text": "1. Be honest about your scale",
+            "page": 6
+        },
+        {
+            "level": "H3",
+            "text": "2. Assess your team’s operational capacity",
+            "page": 6
+        },
+        {
+            "level": "H3",
+            "text": "3. Evaluate your actual orchestration needs",
+            "page": 7
+        },
+        {
+            "level": "H3",
+            "text": "4. Consider your deployment frequency",
+            "page": 7
+        },
+        {
+            "level": "H3",
+            "text": "5. Factor in your existing investments",
+            "page": 7
+        },
+        {
+            "level": "H2",
+            "text": "The Future of Container Orchestration",
+            "page": 7
+        }
+    ]
+}

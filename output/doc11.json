@@ -1,0 +1,30 @@
+{
+  "title": "Kubernetes Is Dead",
+  "outline": [
+    {
+      "level": "H2",
+      "text": "Complexity That Never Pays Off",
+      "page": 2
+    },
+    {
+      "level": "H2",
+      "text": "Operational Maturity Mismatch",
+      "page": 4
+    },
+    {
+      "level": "H1",
+      "text": "1. AWS App Runner + ECS: Simplicity Over Control",
+      "page": 4
+    },
+    {
+      "level": "H1",
+      "text": "IDPs",
+      "page": 6
+    },
+    {
+      "level": "H2",
+      "text": "The Future of Container Orchestration",
+      "page": 8
+    }
+  ]
+}
