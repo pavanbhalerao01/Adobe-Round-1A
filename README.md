@@ -48,7 +48,3 @@ The project uses several Python libraries including:
 ## Docker Support
 
 A Dockerfile is included for containerized deployment of the application.
-
-## License
-
-[Add your license information here]
