@@ -1,6 +1,5 @@
 """Configuration settings for PDF Outline Extractor"""
 
-# Model parameters
 MODEL_CONFIG = {
     'n_estimators': 100,
     'max_depth': 10,
@@ -9,7 +8,6 @@ MODEL_CONFIG = {
     'random_state': 42
 }
 
-# Feature extraction parameters
 FEATURE_CONFIG = {
     'min_text_length': 3,
     'max_text_length': 200,
@@ -18,7 +16,6 @@ FEATURE_CONFIG = {
     'title_min_confidence': 0.7
 }
 
-# File paths
 PATHS = {
     'model_dir': 'models/',
     'training_pdfs': 'training_pdfs/',
@@ -27,7 +24,6 @@ PATHS = {
     'logs_dir': 'logs/'
 }
 
-# Processing parameters
 PROCESSING_CONFIG = {
     'max_pages': 50,
     'timeout_seconds': 10,
