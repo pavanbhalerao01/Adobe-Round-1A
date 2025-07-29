@@ -1,5 +1,3 @@
-"""Configuration settings for PDF Outline Extractor"""
-
 MODEL_CONFIG = {
     'n_estimators': 100,
     'max_depth': 10,
