@@ -1,5 +1,3 @@
-"""Output refinement and postprocessing"""
-
 import re
 from typing import List, Dict, Any
 
@@ -8,14 +6,14 @@ def refine_title(title: str, features: List[Dict]) -> str:
     if not title:
         return ""
     
-    # Clean common title artifacts
-    title = re.sub(r'^[^A-Za-z]*', '', title)  # Remove leading non-letters
-    title = re.sub(r'[^A-Za-z\s]*$', '', title)  # Remove trailing non-letters
+   
+    title = re.sub(r'^[^A-Za-z]*', '', title)  
+    title = re.sub(r'[^A-Za-z\s]*$', '', title)  
     title = title.strip()
     
-    # If title is too short, try to find a better one
+    
     if len(title) < 5:
-        for feature in features[:20]:  # Check first 20 features
+        for feature in features[:20]:  
             text = feature['text']
             if (len(text) > 10 and 
                 len(text) < 100 and 
@@ -32,13 +30,13 @@ def refine_headings(headings: List[Dict], features: List[Dict]) -> List[Dict]:
     for heading in headings:
         text = heading['text']
         
-        # Skip invalid headings
+        
         if len(text) < 3 or len(text) > 200:
             continue
         
-        # Clean heading text
-        cleaned_text = re.sub(r'^\s*[^\w]*\s*', '', text)  # Remove leading symbols
-        cleaned_text = re.sub(r'\s*[^\w]*\s*$', '', cleaned_text)  # Remove trailing symbols
+        
+        cleaned_text = re.sub(r'^\s*[^\w]*\s*', '', text)  
+        cleaned_text = re.sub(r'\s*[^\w]*\s*$', '', cleaned_text)  
         
         if len(cleaned_text) < 3:
             continue
@@ -53,10 +51,10 @@ def validate_outline_structure(outline: List[Dict]) -> List[Dict]:
     if not outline:
         return outline
     
-    # Sort by page and position
+    
     outline.sort(key=lambda x: (x['page'], x.get('y_pos', 0)))
     
-    # Remove duplicates
+    
     seen = set()
     unique_outline = []
     for item in outline:
