@@ -1,10 +1,3 @@
-"""
-Complete PDF Outline Extraction Solution for Adobe Hackathon Round 1A
-This solution uses a lightweight ML approach with rule-based enhancements
-for accurate title and heading extraction from PDFs.
-Enhanced version that extracts complete multi-line titles.
-"""
-
 import os
 import json
 import pickle
@@ -24,12 +17,12 @@ class PDFOutlineExtractor:
         self.model = None
         self.scaler = None
         self.title_patterns = [
-            r'^[A-Z][A-Za-z\s\-:&]+$',  # All caps or title case
-            r'^\d+\.\s*[A-Z][A-Za-z\s]+',  # Numbered sections
-            r'^Chapter\s+\d+',  # Chapter headings
-            r'^Part\s+[IVX\d]+',  # Part headings
-            r'^[A-Z\s]{3,}$',  # All caps titles
-            r'^[A-Z][a-z]+(\s+[A-Z][a-z]*)*$',  # Title case
+            r'^[A-Z][A-Za-z\s\-:&]+$',  
+            r'^\d+\.\s*[A-Z][A-Za-z\s]+',  
+            r'^Chapter\s+\d+',  
+            r'^Part\s+[IVX\d]+',  
+            r'^[A-Z\s]{3,}$',  
+            r'^[A-Z][a-z]+(\s+[A-Z][a-z]*)*$',  
         ]
         
     def extract_text_features(self, pdf_path):
@@ -41,15 +34,15 @@ class PDFOutlineExtractor:
             page = doc[page_num]
             blocks = page.get_text("dict")["blocks"]
             
-            # Group text spans that are likely part of the same element
+             
             grouped_spans = self._group_text_spans(blocks, page.rect)
             
             for group in grouped_spans:
                 text = group['text'].strip()
-                if len(text) < 3 or len(text) > 500:  # Increased max length for multi-line titles
+                if len(text) < 3 or len(text) > 500:   
                     continue
                     
-                # Extract features for the grouped text
+                
                 feature = self._extract_group_features(group, text, page_num, page.rect)
                 if feature:
                     features.append(feature)
@@ -61,7 +54,7 @@ class PDFOutlineExtractor:
         """Group text spans that likely belong to the same text element"""
         all_spans = []
         
-        # Collect all spans with their properties
+        
         for block in blocks:
             if "lines" not in block:
                 continue
@@ -84,10 +77,10 @@ class PDFOutlineExtractor:
                         'line_height': bbox[3] - bbox[1]
                     })
         
-        # Sort spans by vertical position (top to bottom)
+         
         all_spans.sort(key=lambda x: x['y_center'])
         
-        # Group spans that are likely part of the same text element
+         
         groups = []
         current_group = None
         
@@ -95,15 +88,15 @@ class PDFOutlineExtractor:
             if current_group is None:
                 current_group = self._create_new_group(span)
             else:
-                # Check if this span should be added to the current group
+                
                 if self._should_group_spans(current_group, span):
                     self._add_span_to_group(current_group, span)
                 else:
-                    # Finalize current group and start new one
+                     
                     groups.append(self._finalize_group(current_group))
                     current_group = self._create_new_group(span)
         
-        # Don't forget the last group
+         
         if current_group:
             groups.append(self._finalize_group(current_group))
         
@@ -125,30 +118,27 @@ class PDFOutlineExtractor:
         """Determine if a span should be added to the existing group"""
         last_span = group['spans'][-1]
         
-        # Check vertical distance
+         
         vertical_distance = span['y_center'] - last_span['y_center']
         avg_line_height = group['avg_line_height']
         
-        # Too far apart vertically
+         
         if vertical_distance > avg_line_height * 2.5:
             return False
         
-        # Check horizontal alignment for multi-line titles
+         
         x_diff = abs(span['x_center'] - last_span['x_center'])
-        page_width = 600  # Approximate page width
+        page_width = 600   
         
-        # Font similarity check
+         
         font_size_diff = abs(span['font_size'] - group['font_size'])
         font_similar = (font_size_diff < 2 and 
                        span['font'] == group['font'] and
                        span['font_flags'] == group['font_flags'])
         
-        # Text content similarity (for titles/headings)
+         
         is_continuation = self._is_text_continuation(group['text'], span['text'])
         
-        # Group conditions:
-        # 1. Same line (very close vertically)
-        # 2. Multi-line title/heading (similar font, reasonable vertical distance, similar horizontal position)
         same_line = vertical_distance < avg_line_height * 0.5
         multi_line_title = (font_similar and 
                           vertical_distance < avg_line_height * 2.0 and
@@ -158,19 +148,17 @@ class PDFOutlineExtractor:
     
     def _is_text_continuation(self, existing_text, new_text):
         """Check if new text is likely a continuation of existing text"""
-        # Check for title-like patterns
+        
         combined = f"{existing_text} {new_text}".strip()
         
-        # If existing text ends without punctuation and new text starts with lowercase/continuation
         if (not existing_text.endswith(('.', '!', '?', ':')) and 
             (new_text[0].islower() or new_text.startswith(('and', 'or', 'of', 'in', 'on', 'at', 'to', 'for')))):
             return True
         
-        # Both parts are title case or similar formatting
+         
         if (existing_text.istitle() and new_text.istitle()) or (existing_text.isupper() and new_text.isupper()):
             return True
         
-        # Check for common title patterns
         title_keywords = ['introduction', 'chapter', 'part', 'section', 'analysis', 'study', 'research', 'method']
         if any(keyword in combined.lower() for keyword in title_keywords):
             return True
@@ -182,25 +170,23 @@ class PDFOutlineExtractor:
         group['spans'].append(span)
         group['text'] = f"{group['text']} {span['text']}".strip()
         
-        # Update bounding box to encompass all spans
         old_bbox = group['bbox']
         new_bbox = span['bbox']
         group['bbox'] = [
-            min(old_bbox[0], new_bbox[0]),  # min x
-            min(old_bbox[1], new_bbox[1]),  # min y
-            max(old_bbox[2], new_bbox[2]),  # max x
-            max(old_bbox[3], new_bbox[3])   # max y
+            min(old_bbox[0], new_bbox[0]),   
+            min(old_bbox[1], new_bbox[1]),   
+            max(old_bbox[2], new_bbox[2]),   
+            max(old_bbox[3], new_bbox[3])    
         ]
         
-        # Update average line height
         total_height = sum(s['line_height'] for s in group['spans'])
         group['avg_line_height'] = total_height / len(group['spans'])
     
     def _finalize_group(self, group):
         """Finalize a text group and clean up the text"""
-        # Clean up the combined text
+        
         text = group['text']
-        text = re.sub(r'\s+', ' ', text)  # Normalize whitespace
+        text = re.sub(r'\s+', ' ', text)   
         text = text.strip()
         
         group['text'] = text
@@ -212,31 +198,26 @@ class PDFOutlineExtractor:
         font_size = group['font_size']
         font_flags = group['font_flags']
         
-        # Position features
         x_pos = bbox[0] / page_rect.width
         y_pos = bbox[1] / page_rect.height
         width = (bbox[2] - bbox[0]) / page_rect.width
         height = (bbox[3] - bbox[1]) / page_rect.height
         
-        # Text features
         is_bold = bool(font_flags & 2**4)
         is_italic = bool(font_flags & 2**1)
         word_count = len(text.split())
         char_count = len(text)
-        line_count = len(group['spans'])  # Number of lines in this group
+        line_count = len(group['spans'])   
         
-        # Pattern matching
         has_number = bool(re.search(r'\d', text))
         starts_with_number = bool(re.match(r'^\d+\.?\s*', text))
         is_all_caps = text.isupper() and len(text) > 3
         is_title_case = text.istitle()
         
-        # Position-based features
         is_left_aligned = x_pos < 0.1
         is_centered = 0.3 < x_pos < 0.7
         is_top_of_page = y_pos < 0.2
         
-        # Multi-line features
         is_multi_line = line_count > 1
         avg_words_per_line = word_count / line_count if line_count > 0 else word_count
         
@@ -268,7 +249,6 @@ class PDFOutlineExtractor:
         """Generate training data from PDF files and their corresponding JSON labels"""
         training_data = []
         
-        # Process each PDF file
         for pdf_file in os.listdir(pdf_folder):
             if not pdf_file.endswith('.pdf'):
                 continue
@@ -282,14 +262,12 @@ class PDFOutlineExtractor:
                 
             print(f"Processing {pdf_file}...")
             
-            # Load ground truth
             with open(json_path, 'r', encoding='utf-8') as f:
                 ground_truth = json.load(f)
             
-            # Extract features
+            
             features = self.extract_text_features(pdf_path)
             
-            # Label the data
             labeled_data = self._label_features(features, ground_truth)
             training_data.extend(labeled_data)
         
@@ -301,7 +279,6 @@ class PDFOutlineExtractor:
         title = ground_truth.get('title', '').strip()
         outline = ground_truth.get('outline', [])
         
-        # Create lookup for headings
         heading_texts = set()
         heading_levels = {}
         
@@ -314,7 +291,7 @@ class PDFOutlineExtractor:
         for feature in features:
             text = feature['text'].strip()
             
-            # Determine label
+            
             if text == title and title:
                 label = 'title'
             elif text in heading_texts:
@@ -328,10 +305,9 @@ class PDFOutlineExtractor:
                 else:
                     label = 'text'
             else:
-                # Check for partial matches and multi-line matches
                 label = 'text'
                 
-                # Check heading matches
+                
                 for heading_text in heading_texts:
                     if self._advanced_text_match(text, heading_text):
                         level = heading_levels[heading_text]
@@ -343,7 +319,7 @@ class PDFOutlineExtractor:
                             label = 'h3'
                         break
                 
-                # Check title matches with improved multi-line support
+                
                 if title and self._advanced_text_match(text, title):
                     label = 'title'
             
@@ -354,42 +330,41 @@ class PDFOutlineExtractor:
     
     def _advanced_text_match(self, text1, text2):
         """Advanced text matching that handles multi-line and partial matches"""
-        # Exact match
+        
         if text1.strip() == text2.strip():
             return True
         
-        # Clean both texts for comparison
         clean1 = re.sub(r'[^\w\s]', '', text1.lower()).strip()
         clean2 = re.sub(r'[^\w\s]', '', text2.lower()).strip()
         
-        # Exact match after cleaning
+        
         if clean1 == clean2:
             return True
         
-        # Check if one contains the other (for partial OCR results)
+        
         if clean1 in clean2 or clean2 in clean1:
             return True
         
-        # Word-based matching
+        
         words1 = set(clean1.split())
         words2 = set(clean2.split())
         
         if not words1 or not words2:
             return False
         
-        # Calculate word overlap
+        
         intersection = words1.intersection(words2)
         union = words1.union(words2)
         
-        # Jaccard similarity
+        
         jaccard = len(intersection) / len(union) if union else 0
         
-        # For short texts, require higher similarity
+        
         min_words = min(len(words1), len(words2))
         if min_words <= 3:
             return jaccard > 0.7 or len(intersection) >= min_words
         
-        # For longer texts, more lenient
+        
         return jaccard > 0.6
     
     def _text_similarity(self, text1, text2):
@@ -408,7 +383,7 @@ class PDFOutlineExtractor:
         """Train the classification model with updated features"""
         df = pd.DataFrame(training_data)
         
-        # Features for training (including new multi-line features)
+        
         feature_columns = [
             'font_size', 'is_bold', 'is_italic', 'x_pos', 'y_pos', 'width', 'height',
             'word_count', 'char_count', 'line_count', 'is_multi_line', 'avg_words_per_line',
@@ -419,15 +394,15 @@ class PDFOutlineExtractor:
         X = df[feature_columns].values
         y = df['label'].values
         
-        # Split data
+        
         X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.25,random_state=49)
         
-        # Scale features
+        
         self.scaler = StandardScaler()
         X_train_scaled = self.scaler.fit_transform(X_train)
         X_test_scaled = self.scaler.transform(X_test)
         
-        # Train model
+        
         self.model = RandomForestClassifier(
             n_estimators=150,
             max_depth=10,
@@ -438,7 +413,7 @@ class PDFOutlineExtractor:
         
         self.model.fit(X_train_scaled, y_train)
         
-        # Evaluate
+        
         y_pred = self.model.predict(X_test_scaled)
         print(f"Accuracy: {accuracy_score(y_test, y_pred):.4f}")
         print("\nClassification Report:")
@@ -477,7 +452,7 @@ class PDFOutlineExtractor:
         if not features:
             return {"title": "", "outline": []}
         
-        # Prepare features for prediction (including new features)
+        
         feature_columns = [
             'font_size', 'is_bold', 'is_italic', 'x_pos', 'y_pos', 'width', 'height',
             'word_count', 'char_count', 'line_count', 'is_multi_line', 'avg_words_per_line',
@@ -488,11 +463,11 @@ class PDFOutlineExtractor:
         X = np.array([[f[col] for col in feature_columns] for f in features])
         X_scaled = self.scaler.transform(X)
         
-        # Predict
+        
         predictions = self.model.predict(X_scaled)
         probabilities = self.model.predict_proba(X_scaled)
         
-        # Extract title and headings
+       
         title_candidates = []
         headings = []
         
@@ -501,8 +476,8 @@ class PDFOutlineExtractor:
             pred_idx = np.argmax(prob)
             class_label = self.model.classes_[pred_idx]
             
-            # Collect title candidates
-            if class_label == 'title' and max_prob > 0.4:  # Lower threshold for multi-line titles
+            
+            if class_label == 'title' and max_prob > 0.4:  
                 title_candidates.append({
                     'text': feature['text'],
                     'confidence': max_prob,
@@ -523,20 +498,20 @@ class PDFOutlineExtractor:
                     'y_pos': feature['y_pos']
                 })
         
-        # Select best title from candidates
+        
         title = self._select_best_title(title_candidates, features)
         
-        # If no ML-detected title, use rule-based fallback
+        
         if not title:
             title = self._extract_title_fallback(features)
         
-        # Apply rule-based refinements
+        
         title, headings = self._apply_rules(title, headings, features)
         
-        # Sort headings by page and position
+        
         headings.sort(key=lambda x: (x['page'], x.get('y_pos', 0)))
         
-        # Format output
+        
         outline = [{'level': h['level'], 'text': h['text'], 'page': h['page']} for h in headings]
         
         return {
@@ -549,31 +524,31 @@ class PDFOutlineExtractor:
         if not title_candidates:
             return ""
         
-        # Sort by multiple criteria
+        
         def title_score(candidate):
             score = candidate['confidence']
             
-            # Prefer titles on first page
+           
             if candidate['page'] == 1:
                 score += 0.4
             elif candidate['page'] <= 3:
                 score += 0.2
             
-            # Prefer titles near top of page
+            
             if candidate['y_pos'] < 0.2:
                 score += 0.3
             elif candidate['y_pos'] < 0.4:
                 score += 0.1
             
-            # Prefer bold titles
+            
             if candidate['is_bold']:
                 score += 0.2
             
-            # Bonus for multi-line titles (often more complete)
+           
             if candidate['is_multi_line']:
                 score += 0.1
             
-            # Prefer larger font sizes
+            
             max_font = max(f['font_size'] for f in features)
             if max_font > 0:
                 font_ratio = candidate['font_size'] / max_font
@@ -582,11 +557,11 @@ class PDFOutlineExtractor:
                 elif font_ratio > 0.6:
                     score += 0.1
             
-            # Text length considerations
+            
             text_len = len(candidate['text'])
             word_count = len(candidate['text'].split())
             
-            # Prefer reasonable length titles
+            
             if 10 <= text_len <= 200 and 2 <= word_count <= 25:
                 score += 0.1
             elif text_len < 5 or text_len > 300:
@@ -594,7 +569,7 @@ class PDFOutlineExtractor:
             
             return score
         
-        # Sort by score and return best
+        
         title_candidates.sort(key=title_score, reverse=True)
         return title_candidates[0]['text']
     
@@ -605,23 +580,23 @@ class PDFOutlineExtractor:
         for feature in features:
             text = feature['text'].strip()
             
-            # Skip very short or very long texts
+            
             if len(text) < 5 or len(text) > 300:
                 continue
             
-            # Only consider first 3 pages
+           
             if feature['page'] > 3:
                 continue
             
             score = 0
             
-            # Position-based scoring
+            
             if feature['page'] == 1:
                 score += 4
             elif feature['page'] <= 2:
                 score += 2
             
-            if feature['y_pos'] < 0.2:  # Top of page
+            if feature['y_pos'] < 0.2:  
                 score += 3
             elif feature['y_pos'] < 0.4:
                 score += 1
@@ -629,7 +604,7 @@ class PDFOutlineExtractor:
             if feature['is_centered']:
                 score += 2
             
-            # Text-based scoring
+            
             if feature['is_bold']:
                 score += 3
             if feature['font_size'] > 14:
@@ -637,15 +612,15 @@ class PDFOutlineExtractor:
             if feature['is_title_case'] or feature['is_all_caps']:
                 score += 2
             
-            # Multi-line bonus
+            
             if feature.get('is_multi_line', False):
                 score += 1
             
-            # Pattern-based scoring
+           
             if any(re.match(pattern, text) for pattern in self.title_patterns):
                 score += 2
             
-            # Penalize certain patterns
+            
             if re.search(r'^\d+$', text):
                 score -= 5
             if re.search(r'^page\s+\d+', text, re.IGNORECASE):
@@ -653,7 +628,7 @@ class PDFOutlineExtractor:
             if len(text.split()) > 20:
                 score -= 2
             
-            # Bonus for title-like content
+            
             title_words = ['introduction', 'analysis', 'study', 'research', 'report', 'guide', 'manual']
             if any(word in text.lower() for word in title_words):
                 score += 1
@@ -661,7 +636,7 @@ class PDFOutlineExtractor:
             if score > 0:
                 candidates.append((score, text, feature))
         
-        # Return highest scoring candidate
+       
         if candidates:
             candidates.sort(key=lambda x: x[0], reverse=True)
             return candidates[0][1]
@@ -670,23 +645,23 @@ class PDFOutlineExtractor:
     
     def _apply_rules(self, title, headings, features):
         """Apply rule-based refinements"""
-        # Title refinement
+        
         if title:
-            # Clean the title
+            
             title = re.sub(r'^\s*[^\w]*\s*', '', title)
             title = re.sub(r'\s*[^\w]*\s*$', '', title)
             title = re.sub(r'\s+', ' ', title).strip()
         
-        # Heading refinement
+        
         refined_headings = []
         for heading in headings:
             text = heading['text']
             
-            # Skip very short or very long headings
+           
             if len(text) < 3 or len(text) > 300:
                 continue
             
-            # Clean heading text
+            
             cleaned_text = re.sub(r'^\s*[^\w]*\s*', '', text)
             cleaned_text = re.sub(r'\s*[^\w]*\s*$', '', cleaned_text)
             cleaned_text = re.sub(r'\s+', ' ', cleaned_text).strip()
@@ -694,7 +669,7 @@ class PDFOutlineExtractor:
             if len(cleaned_text) < 3:
                 continue
             
-            # Skip if it looks like regular paragraph text
+            
             if (len(cleaned_text.split()) > 15 and 
                 not heading['text'][0].isupper() and
                 heading['confidence'] < 0.7):
@@ -705,12 +680,12 @@ class PDFOutlineExtractor:
         
         return title, refined_headings
 
-# Training script
+
 def train_extractor():
     """Train the PDF outline extractor"""
     extractor = PDFOutlineExtractor()
     
-    # Generate training data
+    
     print("Generating training data...")
     training_data = extractor.generate_training_data('training_pdfs/', 'training_labels/')
     
@@ -720,15 +695,15 @@ def train_extractor():
     
     print(f"Generated {len(training_data)} training samples")
     
-    # Train model
+    
     print("Training model...")
     extractor.train_model(training_data)
     
-    # Save model
+    
     extractor.save_model()
     print("Training complete!")
 
-# Inference script
+
 def process_pdf(pdf_path, model_path='models/outline_extractor.pkl'):
     """Process a single PDF file"""
     extractor = PDFOutlineExtractor()
